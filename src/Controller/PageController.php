@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PageController extends AbstractController
 {
-    #[Route('/page', name: 'home', methods: ['GET'])]
+    #[Route('/', name: 'home', methods: ['GET'])]
     public function index(
         CategoryRepository $categoryRepository,
         PostRepository $postRepository,
