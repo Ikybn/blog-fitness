@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class CategoryController extends AbstractController
 {
-    #[Route('/{category}/edit', name: 'category_edit')]
+    #[Route('/category', name: 'category_edit')]
     public function edit(
         Request $request,
         CategoryRepository $categoryRepository,
@@ -61,7 +61,6 @@ class CategoryController extends AbstractController
         Request $request,
         EntityManagerInterface $em,
     ): Response {
-        return $this->render('category/new.html.twig', [
-        ]);
+        return $this->render('category/new.html.twig', []);
     }
 }
