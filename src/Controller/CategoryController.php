@@ -24,7 +24,11 @@ class CategoryController extends AbstractController
             'name' => $request->get('category')
         ]);
 
-        $form = $this->createForm(CategoryType::class);
+        if (!$category) {
+            throw $this->createNotFoundException('La catégorie n\'existe pas.');
+        }
+
+        $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -61,6 +65,14 @@ class CategoryController extends AbstractController
         Request $request,
         EntityManagerInterface $em,
     ): Response {
-        return $this->render('category/new.html.twig', []);
+        $category = new Category();
+        $form = $this->createForm(CategoryType::class, $category);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+        }
+        return $this->render('category/new.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }
