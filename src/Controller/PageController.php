@@ -16,9 +16,12 @@ class PageController extends AbstractController
         CategoryRepository $categoryRepository,
         PostRepository $postRepository,
     ): Response {
+        $posts = $postRepository->findAll();
+        $categories= $categoryRepository->findAll();
+
         return $this->render('page/home.html.twig', [
-            'posts' => $postRepository->findAll(),
-            'categories'=> $categoryRepository->findAll(),
+            'posts' => $posts,
+            'categories' => $categories,
         ]);
     }
 
@@ -28,11 +31,17 @@ class PageController extends AbstractController
         CategoryRepository $categoryRepository,
         PostRepository $postRepository,
         ): Response {
+            $categoryName = $request -> get('category');
             $category = $categoryRepository->findOneBy([
-                'name'=> $request->get('category')
-            ]);
+                'name'=> $categoryName]);
+         if (!$category) {
+                    throw $this->createNotFoundException('La catégorie n\'existe pas.');
+                }
+        
+                $posts = $postRepository->findBy(['category' => $category]);
+        
             return $this->render('page/category.html.twig', [
-                'categories'=> $category,
+                'category'=> $category,
                 'posts' => $postRepository->findBy(['category'=>$category]),
             ]);
 }
