@@ -731,3 +731,46 @@ ul.social_icon li a:hover {
 
 /** end footer **/
 
+/* styles.css */
+
+.container {
+     max-width: 400px;
+     margin: 0 auto;
+     padding: 20px;
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+     border-radius: 5px;
+ }
+ 
+ h1 {
+     text-align: center;
+ }
+ 
+ .registration-form {
+     margin-top: 20px;
+ }
+ 
+ .form-group {
+     margin-bottom: 20px;
+ }
+ 
+ .form-control {
+     width: 100%;
+     padding: 10px;
+     box-sizing: border-box;
+     border: 1px solid #ccc;
+     border-radius: 4px;
+ }
+ 
+ .btn-primary {
+     background-color: #007bff;
+     color: #fff;
+     padding: 10px 15px;
+     border: none;
+     border-radius: 4px;
+     cursor: pointer;
+ }
+ 
+ .btn-primary:hover {
+     background-color: #0056b3;
+ }
+ 
