@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\PostRepository;
 use App\Repository\CategoryRepository;
+use App\Repository\CommentRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,8 +18,7 @@ class PageController extends AbstractController
         PostRepository $postRepository,
     ): Response {
         $posts = $postRepository->findAll();
-        $categories= $categoryRepository->findAll();
-
+        $categories = $categoryRepository->findAll();
         return $this->render('page/home.html.twig', [
             'posts' => $posts,
             'categories' => $categories,
@@ -30,19 +30,18 @@ class PageController extends AbstractController
         Request $request,
         CategoryRepository $categoryRepository,
         PostRepository $postRepository,
-        ): Response {
-            $categoryName = $request -> get('category');
-            $category = $categoryRepository->findOneBy([
-                'name'=> $categoryName]);
-         if (!$category) {
-                    throw $this->createNotFoundException('La catégorie n\'existe pas.');
-                }
+
+    ): Response {
+        $categoryName = $request->get('category');
+        $category = $categoryRepository->findOneBy([
+            'name' => $categoryName
+        ]);
         
-                $posts = $postRepository->findBy(['category' => $category]);
-        
-            return $this->render('page/category.html.twig', [
-                'category'=> $category,
-                'posts' => $postRepository->findBy(['category'=>$category]),
-            ]);
-}
+        $posts = $postRepository->findBy(['category' => $category]);
+
+        return $this->render('page/category.html.twig', [
+            'category' => $category,
+            'posts' => $postRepository->findBy(['category' => $category]),
+        ]);
+    }
 }

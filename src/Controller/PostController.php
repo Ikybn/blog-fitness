@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Post;
 use App\Form\PostType;
 use App\Repository\PostRepository;
@@ -24,6 +25,18 @@ class PostController extends AbstractController
             'posts' => $posts,
         ]);
     }
+
+    #[Route('/{id}', name: 'app_post_show')]
+    public function showOne(PostRepository $postRepository, Comment $comment): Response
+    {
+        $posts = $postRepository->findBy();
+
+        return $this->render('post/show.html.twig', [
+            'posts' => $posts,
+            'comments'=>$comment,
+        ]);
+    }
+
 
     #[Route('/post/new', name: 'app_post_new')]
     public function new(Request $request, EntityManagerInterface $em): Response
