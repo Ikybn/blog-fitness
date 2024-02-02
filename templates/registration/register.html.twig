@@ -6,7 +6,7 @@
 {% block content %} 
     <div class="container">
         <h1>Inscription</h1>
-
+ 
         {{ form_start(form, { 'action': path('app_register'), 'attr': {'class': 'registration-form'} }) }}
             <div class="form-group">
                 {{ form_row(form.username, {'attr': {'class': 'form-control', 'placeholder': 'Nom d\'utilisateur'}}) }}

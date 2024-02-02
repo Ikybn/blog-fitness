@@ -15,10 +15,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class PageController extends AbstractController
 {
     #[Route('/', name: 'home', methods: ['GET'])]
-    public function index(CategoryRepository $categoryRepository, PostRepository $postRepository): Response
-    {
+    public function index(
+        CategoryRepository $categoryRepository,
+        PostRepository $postRepository,
+    ): Response {
         $posts = $postRepository->findAll();
-        $categories = $categoryRepository->findAll();
+        $categories= $categoryRepository->findAll();
 
         return $this->render('page/home.html.twig', [
             'posts' => $posts,
@@ -26,23 +28,28 @@ class PageController extends AbstractController
         ]);
     }
 
+    
     #[Route('/{category}', name: 'category', methods: ['GET'])]
-    public function category(Request $request, CategoryRepository $categoryRepository, PostRepository $postRepository): Response
-    {
-        $categoryName = $request->get('category');
-        $category = $categoryRepository->findOneBy(['name' => $categoryName]);
-
-        if (!$category) {
-            throw $this->createNotFoundException('La catégorie n\'existe pas.');
-        }
-
-        $posts = $postRepository->findBy(['category' => $category]);
-
-        return $this->render('page/category.html.twig', [
-            'category' => $category,
-            'posts' => $posts,
-        ]);
-    }
+    public function category(
+        Request $request,
+        CategoryRepository $categoryRepository,
+        PostRepository $postRepository,
+        ): Response {
+            $categoryName = $request -> get('category');
+            $category = $categoryRepository->findOneBy([
+                'name'=> $categoryName]);
+         if (!$category) {
+                    throw $this->createNotFoundException('La catégorie n\'existe pas.');
+                }
+        
+                $posts = $postRepository->findBy(['category' => $category]);
+        
+            return $this->render('page/category.html.twig', [
+                'category'=> $category,
+                'posts' => $postRepository->findBy(['category'=>$category]),
+            ]);
+}
+    
 
     #[Route("/register", name: "app_register")]
 public function register(Request $request, EntityManagerInterface $em): Response
