@@ -1,13 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PageController!{% endblock %}
-
 {% block body %}
+    <body class="main-layout">
+        <div class="loader_bg">
+            <div class="loader"><img src="{{ asset('public/images/loading.gif') }}" alt="#" /></div>
+        </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/ikram/Desktop/blog-fitness/src/Controller/PageController.php'|file_link(0) }}">src/Controller/PageController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/ikram/Desktop/blog-fitness/templates/page/index.html.twig'|file_link(0) }}">templates/page/index.html.twig</a></code></li>
-    </ul>
-</div>
-{% endblock %}
+    {% include 'page/blogs.html.twig' %}
+    {% include 'page/testimonial.html.twig' %}
+    {% include 'page/contact.html.twig' %}
+
+    </body>
+    {% endblock %}
+
